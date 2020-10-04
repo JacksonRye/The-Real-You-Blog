@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&family=Roboto:wght@300;400&family=Satisfy&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+}
+
+.Header {
+  width: 100%;
+  z-index: 20;
+  padding-bottom: 1rem;
+}
+
+.Header #logo-and-search {
+  margin: 0.5rem 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.Header #logo-and-search h1 {
+  font-weight: 200;
+}
+
+.Header .search-box {
+  width: 95%;
+  margin: auto;
+}
+
+.Header .search-box input[type="text"] {
+  padding: 0.5rem 0.7rem;
+  width: 100%;
+}
+
+.Header nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 95%;
+  margin: 1rem auto 0;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid #b9b9b9;
+}
+
+.Header nav a {
+  text-decoration: none;
+  color: #000;
+}
+
+.Home .hero {
+  height: 100vh;
+  background: url("/img/tree-jump.jpg");
+  background-size: cover;
+  color: #fff;
+  -webkit-transform: skewY(2deg);
+          transform: skewY(2deg);
+  padding: 2rem;
+}
+
+.Home .hero h1 {
+  font-size: 3rem;
+}
+
+.Home .hero .tagline h4 {
+  font-family: "Satisfy", cursive;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.Home .hero .tagline img {
+  -webkit-transform: scale(2);
+          transform: scale(2);
+  padding-right: 1rem;
+}
+
+.Home .hero .unskew {
+  padding-top: 1rem;
+  -webkit-transform: skewY(-2deg);
+          transform: skewY(-2deg);
+}
+
+.Home .hero .unskew button {
+  margin: 2rem 0;
+  padding: 1rem;
+  border: none;
+  border-radius: 1.5rem;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background: #F2D059;
+  font-weight: 600;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.Home .recent-blogs {
+  margin-top: 4rem;
+}
+
+.Home .recent-blogs #recent-back {
+  background: #f5db7f;
+  -webkit-transform: skewY(2deg);
+          transform: skewY(2deg);
+  padding: 4rem 0;
+}
+
+.Home .recent-blogs #recent-back h1 {
+  text-align: center;
+  font-size: 4rem;
+  -webkit-transform: skewY(-2deg);
+          transform: skewY(-2deg);
+  color: #f5db7f;
+  text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
+}
+
+.About {
+  height: 100vh;
+  background: url("/img/jump-sun.jpg") center;
+  background-size: cover;
+  color: white;
+  margin-top: 4rem;
+}
+
+.About .content {
+  padding-top: 4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 90%;
+  margin: auto;
+}
+
+.About .content .socials-links {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.About .content .socials-links img {
+  max-width: 2rem;
+  height: auto;
+  color: white;
+  background: white;
+  border-radius: 50%;
+  padding: 0.5rem;
+}
+
+.About .sign {
+  z-index: 10;
+  position: relative;
+  top: 90%;
+  width: 90%;
+  margin: auto;
+  color: #fff;
+  -webkit-transform: translateY(-200%);
+          transform: translateY(-200%);
+  border-top: #b9b9b9 1px solid;
+  padding: 2rem 2rem 3rem;
+}
+/*# sourceMappingURL=App.css.map */

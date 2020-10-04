@@ -1,0 +1,158 @@
+@import "config";
+
+.Header {
+  width: 100%;
+  z-index: 20;
+  padding-bottom: 1rem;
+  #logo-and-search {
+    margin: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      font-weight: 200;
+    }
+  }
+
+  .search-box {
+    width: 95%;
+    margin: auto;
+    input[type="text"] {
+      padding: 0.5rem 0.7rem;
+      width: 100%;
+    }
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin: 1rem auto 0;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid $grey;
+
+    a {
+      text-decoration: none;
+      color: $text-color;
+    }
+  }
+}
+
+.Home {
+  .hero {
+    height: 100vh;
+    background: url("/img/tree-jump.jpg");
+    background-size: cover;
+
+    color: $white;
+    transform: skewY(2deg);
+    padding: 2rem;
+    h1 {
+      font-size: 3rem;
+      // text-decoration: underline;
+    }
+
+    .tagline {
+      h4 {
+        font-family: "Satisfy", cursive;
+        color: $white;
+        font-size: 2rem;
+        // border: solid 1px black;
+      }
+
+      img {
+        transform: scale(2);
+        padding-right: 1rem;
+      }
+    }
+
+    .unskew {
+      padding-top: 1rem;
+      transform: skewY(-2deg);
+
+      button {
+        margin: 2rem 0;
+        padding: 1rem;
+        border: none;
+        border-radius: 1.5rem;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        background: $accent-color;
+        font-weight: 600;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .recent-blogs {
+    margin-top: 4rem;
+
+    #recent-back {
+      background: lighten($accent-color, $amount: 8);
+      transform: skewY(2deg);
+      padding: 4rem 0;
+      h1 {
+          text-align: center;
+          font-size: 4rem;
+          transform: skewY(-2deg);
+        //   color: rgba(211, 211, 211, 0);
+        color: lighten($accent-color, $amount: 8);
+        text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
+
+        //   border: 1px solid #000;
+      }
+    }
+  }
+}
+
+.About {
+    height: 100vh;
+    background: url('/img/jump-sun.jpg') center;
+    background-size: cover;
+    color: white;
+    margin-top: 4rem;
+
+    .content {
+        padding-top: 4rem;
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+        margin: auto;
+
+        .socials {
+
+            &-links {
+                margin-top: 1rem;
+                margin-bottom: 0.5rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                img {
+                    max-width: 2rem;
+                    height: auto;
+                    color: white;
+                    background: white;
+                    border-radius: 50%;
+                    padding: 0.5rem;
+
+                }
+            }
+        }
+    }
+
+    .sign {
+        z-index: 10;
+        position: relative;
+        top: 90%;
+        width: 90%;
+
+        margin: auto;
+        color: $white;
+        transform: translateY(-200%);
+        border-top: $grey 1px solid;
+        padding: 2rem 2rem 3rem;
+    }
+}

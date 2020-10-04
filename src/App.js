@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./scss/App.css";
+import { GlobalProvider } from "./context/GlobalState";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Home from "./views/Home";
+import AllBlogs from "./views/AllBlogs";
+import Admin from "./views/Admin";
+import BlogPost from "./components/BlogPost";
+import Header from "./components/Header";
+import About from "./views/About";
+
+const routes = [
+  {path: "/", name: "Home", Component: Home},
+  {path: "/admin", name: "Admin", Component: Admin},
+  {path: "/all-blogs", name: "All-Blogs", Component: AllBlogs},
+  {path: "/blogs/:slug", name: "Blog-Post", Component: BlogPost}
+]
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalProvider>
+      <Router>
+      <Header />
+        {routes.map(({path, Component}) => (
+          <Route key={path} exact path={path} component={Component} />
+        ))}
+        <About />
+      </Router>
+    </GlobalProvider>
   );
 }
 
