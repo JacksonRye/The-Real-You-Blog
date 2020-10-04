@@ -121,6 +121,11 @@ h6 {
   margin-top: 4rem;
 }
 
+.Home .recent-blogs .tile-img {
+  height: 200px;
+  width: 200px;
+}
+
 .Home .recent-blogs #recent-back {
   background: #f5db7f;
   -webkit-transform: skewY(2deg);

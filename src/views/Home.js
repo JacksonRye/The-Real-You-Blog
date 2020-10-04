@@ -1,33 +1,14 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
+import { Link } from "react-router-dom"
 import logo from "../logo.svg";
 
-import red_freedom from "../img/red-freedom.jpg";
-import run from "../img/run.jpg";
-import tree_jump from "../img/tree-jump.jpg";
 import {
   GridList,
   GridListTile,
   GridListTileBar,
   makeStyles,
 } from "@material-ui/core";
-
-const blogData = [
-  {
-    img: red_freedom,
-    title: "Red",
-    author: "Author",
-  },
-  {
-    img: run,
-    title: "Run",
-    author: "Author",
-  },
-  {
-    img: tree_jump,
-    title: "Tree Jump",
-    author: "Author",
-  },
-];
+import { GlobalContext } from "../context/GlobalState";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,15 +21,19 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     flexWrap: "nowrap",
     transform: "translateZ(0)",
+    height: "400px"
   },
   title: {
-    color: 'black',
-    textAlign: 'center'
+    color: "black",
+    textAlign: "center",
   },
   titleBar: {
     background: "white",
     border: "1px solid gray",
   },
+  img: {
+      height: "200px"
+  }
 }));
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
@@ -56,6 +41,8 @@ const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 const Home = () => {
   const blogsRef = useRef(null);
   const scrollToBlogs = () => scrollToRef(blogsRef);
+
+  const { blogData } = useContext(GlobalContext);
 
   const classes = useStyles();
 
@@ -87,19 +74,21 @@ const Home = () => {
           </h1>
         </div>
         <div className={classes.root}>
-          <GridList className={classes.gridList} cols={2.5} >
+          <GridList className={classes.gridList} cols={2.5}>
             {blogData.map((tile) => (
-              <GridListTile key={tile.img}>
-                <img src={tile.img} alt={tile.title} />
-                <GridListTileBar
-                  title={tile.title}
-                  subtitle={tile.author}
-                  classes={{
-                    root: classes.titleBar,
-                    title: classes.title,
-                  }}
-                />
-              </GridListTile>
+              <Link to={`/blogs/${tile.slug}`}>
+                <GridListTile key={tile.img}>
+                  <img src={tile.img} className="tile-img" alt={tile.title} />
+                  <GridListTileBar
+                    title={tile.title}
+                    subtitle={tile.author}
+                    classes={{
+                      root: classes.titleBar,
+                      title: classes.title,
+                    }}
+                  />
+                </GridListTile>
+              </Link>
             ))}
           </GridList>
         </div>

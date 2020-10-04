@@ -90,6 +90,13 @@
   .recent-blogs {
     margin-top: 4rem;
 
+    .tile-img {
+        height: 200px;
+        width: 200px;
+    }
+
+    
+
     #recent-back {
       background: lighten($accent-color, $amount: 8);
       transform: skewY(2deg);
@@ -104,6 +111,8 @@
 
         //   border: 1px solid #000;
       }
+
+
     }
   }
 }
