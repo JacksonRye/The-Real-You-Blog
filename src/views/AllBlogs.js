@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useContext } from "react";
+import BlogItem from "../components/BlogItem";
+import { GlobalContext } from "../context/GlobalState";
 
 const AllBlogs = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+  const { blogData } = useContext(GlobalContext);
+  return (
+    <div className="AllBlogs">
+      <ul>
+        {blogData.map((blog) => (
+          <BlogItem blog={blog} />
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-export default AllBlogs
+export default AllBlogs;

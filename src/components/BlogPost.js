@@ -6,17 +6,19 @@ const BlogPost = ({ match }) => {
 
   const { slug } = params;
 
-  const { setCurrentBlog, currentBlog } = useContext(GlobalContext);
+  const { setCurrentBlog, currentBlog, loading } = useContext(GlobalContext);
 
   useEffect(() => {
     setCurrentBlog(slug);
   }, []);
 
-  return currentBlog ? (
+  return loading ? (
+    <h1>Loading</h1>
+  ) : (
     <section className="BlogPost">
-      <h1>{currentBlog.title}</h1>
+      <h1>{currentBlog}</h1>
     </section>
-  ) : <h1>Loading</h1>;
+  );
 };
 
 export default BlogPost;
