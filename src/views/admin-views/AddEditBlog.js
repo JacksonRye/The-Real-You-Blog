@@ -1,5 +1,6 @@
 import { makeStyles, TextField } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { GlobalContext, Blog } from "../../context/GlobalState";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,8 +14,10 @@ const useStyles = makeStyles((theme) => ({
 const AddEditBlog = () => {
   const classes = useStyles();
 
+  const { addToBlog, blogData } = useContext(GlobalContext);
+
   const [author, setAuthor] = useState("");
-  const [story, setStory] = useState("");
+  const [body, setBody] = useState("");
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
 
@@ -23,8 +26,8 @@ const AddEditBlog = () => {
     if (prop === "author") {
       setAuthor(value);
     }
-    if (prop === "story") {
-      setStory(value);
+    if (prop === "body") {
+      setBody(value);
     }
     if (prop === "title") {
       setTitle(value);
@@ -50,9 +53,9 @@ const AddEditBlog = () => {
           label="Subtitle"
         />
         <TextField
-          value={story}
+          value={body}
           id="outlined-multiline-static"
-          onChange={(e) => handleChange(e, "story")}
+          onChange={(e) => handleChange(e, "body")}
           label="Story"
           multiline
           rows={10}
@@ -66,7 +69,25 @@ const AddEditBlog = () => {
         />
 
         <div>
-          <button>Save</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+
+              addToBlog(
+                new Blog(
+                  blogData.length + 1,
+
+                  null,
+                  title,
+                  author,
+                  body,
+                  subTitle
+                )
+              );
+            }}
+          >
+            Save
+          </button>
           <button>Cancel</button>
         </div>
       </form>

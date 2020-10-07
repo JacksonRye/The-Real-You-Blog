@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import AdminSearch from "../../components/AdminSearch";
 import { GlobalContext } from "../../context/GlobalState";
+import AllBlogs from "../AllBlogs";
 
 const Dashboard = () => {
 
@@ -10,6 +11,8 @@ const Dashboard = () => {
       <AdminSearch />
 
       <p>Number of Posts: {blogData.length}</p>
+
+      <AllBlogs asAdmin={true} />
     </div>
   );
 };

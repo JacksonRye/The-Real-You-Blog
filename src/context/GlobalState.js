@@ -5,6 +5,18 @@ import run from "../img/run.jpg";
 import tree_jump from "../img/tree-jump.jpg";
 import slugify from "slugify";
 
+export class Blog {
+  constructor(id, img, title, author, body, subtitle) {
+    this.id = id;
+    this.img = img;
+    this.title = title;
+    this.author = author;
+    this.body = body;
+    this.subtitle = subtitle;
+    this.slug = slugify(title);
+  }
+}
+
 const initialState = {
   currentBlog: null,
   blogData: [
@@ -67,12 +79,24 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  function addToBlog(blog) {
+    console.log(blog);
+
+    const payload = [...state.blogData, blog];
+
+    dispatch({
+      type: "ADD_TO_BLOG",
+      payload,
+    });
+  }
+
   return (
     <GlobalContext.Provider
       value={{
         blogData: state.blogData,
         loading: state.loading,
         setCurrentBlog,
+        addToBlog,
       }}
     >
       {children}
