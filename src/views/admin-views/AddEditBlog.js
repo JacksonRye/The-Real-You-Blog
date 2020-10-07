@@ -1,5 +1,5 @@
 import { makeStyles, TextField } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext, Blog } from "../../context/GlobalState";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,60 +11,64 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddEditBlog = () => {
+const AddEditBlog = ({ match }) => {
+  let id;
+
+  if (match) {
+    const { params } = match;
+
+    id = params.id;
+  } else {
+    id = -1;
+  }
+
+  const {
+    getBlogById,
+    loading,
+    addToBlog,
+    blogData,
+    blog,
+    handleBlogChange,
+  } = useContext(GlobalContext);
+  useEffect(() => {
+    getBlogById(+id);
+
+    // setLoading(false)
+    // console.log("edit blog", blog);
+  }, []);
   const classes = useStyles();
 
-  const { addToBlog, blogData } = useContext(GlobalContext);
-
-  const [author, setAuthor] = useState("");
-  const [body, setBody] = useState("");
-  const [title, setTitle] = useState("");
-  const [subTitle, setSubTitle] = useState("");
-
-  const handleChange = (event, prop) => {
-    const value = event.target.value;
-    if (prop === "author") {
-      setAuthor(value);
-    }
-    if (prop === "body") {
-      setBody(value);
-    }
-    if (prop === "title") {
-      setTitle(value);
-    }
-    if (prop === "subtitle") {
-      setSubTitle(value);
-    }
-  };
-
-  return (
+  return loading ? (
+    <h1>Loading</h1>
+  ) : (
     <div className="AddEditBlog">
       <form className={classes.root} noValidate autoComplete="off">
         <TextField
           id="standard-basic"
-          value={title}
-          onChange={(e) => handleChange(e, "title")}
+          value={blog.title}
+          onChange={(e) => handleBlogChange(e, "title")}
           label="Title"
         />
         <TextField
-          value={subTitle}
-          onChange={(e) => handleChange(e, "subtitle")}
+          value={blog.subtitle}
+          onChange={(e) => handleBlogChange(e, "subtitle")}
           id="standard-basic"
           label="Subtitle"
         />
         <TextField
-          value={body}
+          value={blog.body}
+          // defaultValue={blog.body}
           id="outlined-multiline-static"
-          onChange={(e) => handleChange(e, "body")}
+          onChange={(e) => handleBlogChange(e, "body")}
           label="Story"
           multiline
           rows={10}
           variant="outlined"
         />
         <TextField
-          value={author}
+          value={blog.author}
           id="standard-basic"
-          onChange={(e) => handleChange(e, "author")}
+          onChange={(e) => handleBlogChange(e, "author")}
           label="Author"
         />
 
@@ -72,18 +76,6 @@ const AddEditBlog = () => {
           <button
             onClick={(e) => {
               e.preventDefault();
-
-              addToBlog(
-                new Blog(
-                  blogData.length + 1,
-
-                  null,
-                  title,
-                  author,
-                  body,
-                  subTitle
-                )
-              );
             }}
           >
             Save

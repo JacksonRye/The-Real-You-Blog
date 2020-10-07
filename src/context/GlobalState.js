@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useState } from "react";
 import AppReducer from "./AppReducer";
 import red_freedom from "../img/red-freedom.jpg";
 import run from "../img/run.jpg";
@@ -18,7 +18,14 @@ export class Blog {
 }
 
 const initialState = {
-  currentBlog: null,
+  blog: {
+    title: "",
+    subtitle: "",
+    author: "",
+    body: "",
+    img: null,
+    slug: "",
+  },
   blogData: [
     {
       id: 1,
@@ -74,7 +81,28 @@ export const GlobalProvider = ({ children }) => {
     console.log(payload);
 
     dispatch({
-      type: "GET_BLOG_BY_SLUG",
+      type: "SET_BLOG",
+      payload,
+    });
+  }
+
+  function getBlogById(id) {
+    setLoading(true);
+    console.log(id);
+    const blog = state.blogData.find((blog) => id === blog.id) || state.blog;
+
+    console.log(blog);
+
+    dispatch({
+      type: "SET_BLOG",
+      payload: blog,
+    });
+    setLoading(false);
+  }
+
+  function setLoading(payload) {
+    dispatch({
+      type: "SET_LOADING",
       payload,
     });
   }
@@ -90,13 +118,46 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  const handleBlogChange = (event, prop) => {
+    const value = event.target.value;
+
+    let payload;
+
+    if (prop === "author") {
+      const author = value;
+      payload = { ...state.blog, author };
+    }
+    if (prop === "body") {
+      const body = value;
+      payload = { ...state.blog, body };
+    }
+    if (prop === "title") {
+      const title = value;
+      payload = { ...state.blog, title };
+    }
+    if (prop === "subtitle") {
+      const subtitle = value;
+      payload = { ...state.blog, subtitle };
+    }
+
+    dispatch({
+      type: "SET_BLOG",
+      payload,
+    });
+
+  };
+
   return (
     <GlobalContext.Provider
       value={{
+        blog: state.blog,
         blogData: state.blogData,
         loading: state.loading,
         setCurrentBlog,
         addToBlog,
+        getBlogById,
+        setLoading,
+        handleBlogChange,
       }}
     >
       {children}

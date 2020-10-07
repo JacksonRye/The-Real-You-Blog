@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const BlogItem = ({ blog, asAdmin }) => {
-  const { title, subtitle, img, slug } = blog;
+  const { title, subtitle, img, slug, id } = blog;
   return asAdmin ? <div>
       <h1>{title}</h1>
-      <Link>Edit</Link>
+      <Link to={`/admin/edit/${id}`}>Edit</Link>
   </div> : (
     <Link to={`/blog/${slug}`}>
       <div className="BlogItem">

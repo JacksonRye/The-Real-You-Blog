@@ -9,12 +9,14 @@ import Admin from "./views/Admin";
 import BlogPost from "./components/BlogPost";
 import Header from "./components/Header";
 import About from "./views/About";
+import AddEditBlog from "./views/admin-views/AddEditBlog";
 
 const routes = [
   {path: "/", name: "Home", Component: Home},
   {path: "/admin", name: "Admin", Component: Admin},
   {path: "/all-blogs", name: "All-Blogs", Component: AllBlogs},
-  {path: "/blogs/:slug", name: "Blog-Post", Component: BlogPost}
+  {path: "/blogs/:slug", name: "Blog-Post", Component: BlogPost},
+  {path: "/admin/edit/:id", name: "EditBlog", Component: AddEditBlog}
 ]
 
 function App() {
