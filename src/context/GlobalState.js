@@ -84,6 +84,8 @@ export const GlobalProvider = ({ children }) => {
       type: "SET_BLOG",
       payload,
     });
+
+    setLoading(false)
   }
 
   function getBlogById(id) {
@@ -113,8 +115,50 @@ export const GlobalProvider = ({ children }) => {
     const payload = [...state.blogData, blog];
 
     dispatch({
-      type: "ADD_TO_BLOG",
+      type: "UPDATE_BLOG",
       payload,
+    });
+  }
+
+  function deleteBlog(id) {
+    const blogData = state.blogData.slice();
+
+    const index = blogData.findIndex((blog) => blog.id === id);
+
+    blogData.splice(index, 1);
+
+    const blog = {
+      title: "",
+      subtitle: "",
+      author: "",
+      body: "",
+      img: null,
+      slug: "",
+    };
+
+    dispatch({
+      type: "SET_BLOG",
+      payload: blog,
+    });
+
+    dispatch({
+      type: "UPDATE_BLOG",
+      payload: blogData,
+    });
+  }
+
+  function updateBlog(blog) {
+    const { id } = blog;
+
+    const blogData = state.blogData.slice();
+
+    const index = blogData.findIndex((blog) => id === blog.id);
+
+    blogData[index] = blog;
+
+    dispatch({
+      type: "UPDATE_BLOG",
+      payload: blogData,
     });
   }
 
@@ -144,7 +188,6 @@ export const GlobalProvider = ({ children }) => {
       type: "SET_BLOG",
       payload,
     });
-
   };
 
   return (
@@ -158,6 +201,8 @@ export const GlobalProvider = ({ children }) => {
         getBlogById,
         setLoading,
         handleBlogChange,
+        updateBlog,
+        deleteBlog,
       }}
     >
       {children}

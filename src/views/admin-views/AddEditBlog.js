@@ -1,5 +1,6 @@
 import { makeStyles, TextField } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { GlobalContext, Blog } from "../../context/GlobalState";
 
 const useStyles = makeStyles((theme) => ({
@@ -14,13 +15,7 @@ const useStyles = makeStyles((theme) => ({
 const AddEditBlog = ({ match }) => {
   let id;
 
-  if (match) {
-    const { params } = match;
-
-    id = params.id;
-  } else {
-    id = -1;
-  }
+  let save;
 
   const {
     getBlogById,
@@ -29,7 +24,36 @@ const AddEditBlog = ({ match }) => {
     blogData,
     blog,
     handleBlogChange,
+    updateBlog,
+    deleteBlog,
   } = useContext(GlobalContext);
+
+  function saveNewBlog(blog) {
+    const { title, subtitle, body, author } = blog;
+
+    const blogObject = new Blog(
+      blogData.length + 1,
+      null,
+      title,
+      author,
+      body,
+      subtitle
+    );
+
+    addToBlog(blogObject);
+  }
+
+  if (match) {
+    const { params } = match;
+
+    id = params.id;
+
+    save = updateBlog;
+  } else {
+    id = -1;
+    save = saveNewBlog;
+  }
+
   useEffect(() => {
     getBlogById(+id);
 
@@ -42,7 +66,13 @@ const AddEditBlog = ({ match }) => {
     <h1>Loading</h1>
   ) : (
     <div className="AddEditBlog">
-      <form className={classes.root} noValidate autoComplete="off">
+      <Link to="/admin">Go Back</Link>
+      <form
+        className={classes.root}
+        onSubmit={(e) => e.preventDefault()}
+        noValidate
+        autoComplete="off"
+      >
         <TextField
           id="standard-basic"
           value={blog.title}
@@ -73,14 +103,9 @@ const AddEditBlog = ({ match }) => {
         />
 
         <div>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Save
-          </button>
+          <button onClick={() => save(blog)}>Save</button>
           <button>Cancel</button>
+          <button onClick={() => deleteBlog(blog.id)}>Delete</button>
         </div>
       </form>
     </div>

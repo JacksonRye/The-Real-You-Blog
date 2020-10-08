@@ -1,6 +1,6 @@
 export default (state, action) => {
   switch (action.type) {
-    case "ADD_TO_BLOG":
+    case "UPDATE_BLOG":
       return { ...state, blogData: action.payload };
 
     case "SET_BLOG":

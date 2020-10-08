@@ -12,7 +12,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import AddEditBlog from "./admin-views/AddEditBlog";
 import Dashboard from "./admin-views/Dashboard";
 import AdminSearch from "../components/AdminSearch";
-import { GlobalContext } from "../context/GlobalState";
+import { Blog, GlobalContext } from "../context/GlobalState";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,11 +58,13 @@ const Admin = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
-  const {blogData} = useContext(GlobalContext)
+  const { addToBlog, blogData } = useContext(GlobalContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+ 
 
   return (
     <div className={classes.root}>
