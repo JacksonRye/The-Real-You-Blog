@@ -1,9 +1,11 @@
-import React, { createContext, useReducer, useState } from "react";
+import React, { createContext, useEffect, useReducer, useState } from "react";
 import AppReducer from "./AppReducer";
 import red_freedom from "../img/red-freedom.jpg";
 import run from "../img/run.jpg";
 import tree_jump from "../img/tree-jump.jpg";
 import slugify from "slugify";
+
+import firebase from "../firebase";
 
 export class Blog {
   constructor(id, img, title, author, body, subtitle) {
@@ -26,47 +28,7 @@ const initialState = {
     img: null,
     slug: "",
   },
-  blogData: [
-    {
-      id: 1,
-      img: red_freedom,
-      title: "Red",
-      author: "Author",
-      get slug() {
-        return slugify(this.title);
-      },
-
-      body:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-
-      subtitle: "Twinkle, Twinkle little star",
-    },
-    {
-      id: 2,
-      img: run,
-      title: "Run",
-      author: "Author",
-
-      body:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      get slug() {
-        return slugify(this.title);
-      },
-      subtitle: "Twinkle, Twinkle little star",
-    },
-    {
-      id: 3,
-      img: tree_jump,
-      title: "Tree Jump",
-      author: "Author",
-      body:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      get slug() {
-        return slugify(this.title);
-      },
-      subtitle: "Twinkle, Twinkle little star",
-    },
-  ],
+  blogData: [],
   loading: true,
 };
 
@@ -74,6 +36,20 @@ export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+
+  function getBlogs() {
+    firebase
+      .firestore()
+      .collection("blogs")
+      .onSnapshot((snapshot) => {
+        const newBlogs = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        dispatch({ type: "UPDATE_BLOG", payload: newBlogs });
+      });
+  }
 
   function setCurrentBlog(slug) {
     const payload = state.blogData.find((blog) => slug === blog.slug);
@@ -85,7 +61,7 @@ export const GlobalProvider = ({ children }) => {
       payload,
     });
 
-    setLoading(false)
+    setLoading(false);
   }
 
   function getBlogById(id) {
@@ -111,6 +87,12 @@ export const GlobalProvider = ({ children }) => {
 
   function addToBlog(blog) {
     console.log(blog);
+
+    const ref = firebase.firestore().collection("blogs").doc();
+
+    // debugger;
+
+    ref.set({...blog, id: ref.id });
 
     const payload = [...state.blogData, blog];
 
@@ -203,6 +185,7 @@ export const GlobalProvider = ({ children }) => {
         handleBlogChange,
         updateBlog,
         deleteBlog,
+        getBlogs,
       }}
     >
       {children}
