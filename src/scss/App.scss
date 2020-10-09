@@ -1,5 +1,10 @@
 @import "config";
 
+a {
+  text-decoration: none;
+  color: $text-color;
+}
+
 .Header {
   width: 100%;
   z-index: 20;
@@ -8,7 +13,7 @@
     margin: 0.5rem 1rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
 
     h1 {
       font-weight: 200;
@@ -42,7 +47,8 @@
 .Home {
   .hero {
     height: 100vh;
-    background: url("/img/tree-jump.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+      url("/img/tree-jump.jpg");
     background-size: cover;
 
     color: $white;
@@ -50,6 +56,10 @@
     padding: 2rem;
     h1 {
       font-size: 3rem;
+
+      span {
+        color: rgb(255, 255, 0);
+      }
       // text-decoration: underline;
     }
 
@@ -90,82 +100,131 @@
   .recent-blogs {
     margin-top: 4rem;
 
-    .tile-img {
-        height: 200px;
-        width: 200px;
+    &-list {
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-top: 1rem;
+      z-index: 10;
     }
-
-    
 
     #recent-back {
       background: lighten($accent-color, $amount: 8);
       transform: skewY(2deg);
       padding: 4rem 0;
+      z-index: 0;
       h1 {
-          text-align: center;
-          font-size: 4rem;
-          transform: skewY(-2deg);
+        text-align: center;
+        font-size: 4rem;
+        transform: skewY(-2deg);
         //   color: rgba(211, 211, 211, 0);
         color: lighten($accent-color, $amount: 8);
         text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
 
         //   border: 1px solid #000;
       }
-
-
     }
   }
 }
 
 .About {
-    height: 100vh;
-    background: url('/img/jump-sun.jpg') center;
-    background-size: cover;
-    color: white;
-    margin-top: 4rem;
+  height: 100vh;
+  background: url("/img/jump-sun.jpg") center;
+  background-size: cover;
+  color: white;
+  margin-top: 4rem;
 
-    .content {
-        padding-top: 4rem;
+  .content {
+    padding-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+
+    .socials {
+      &-links {
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
         display: flex;
         justify-content: space-between;
-        width: 90%;
-        margin: auto;
-
-        .socials {
-
-            &-links {
-                margin-top: 1rem;
-                margin-bottom: 0.5rem;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                img {
-                    max-width: 2rem;
-                    height: auto;
-                    color: white;
-                    background: white;
-                    border-radius: 50%;
-                    padding: 0.5rem;
-
-                }
-            }
+        align-items: center;
+        img {
+          max-width: 2rem;
+          height: auto;
+          color: white;
+          background: white;
+          border-radius: 50%;
+          padding: 0.5rem;
         }
+      }
     }
+  }
 
-    .sign {
-        z-index: 10;
-        position: relative;
-        top: 90%;
-        width: 90%;
+  .sign {
+    z-index: 10;
+    position: relative;
+    top: 90%;
+    width: 90%;
 
-        margin: auto;
-        color: $white;
-        transform: translateY(-200%);
-        border-top: $grey 1px solid;
-        padding: 2rem 2rem 3rem;
-    }
+    margin: auto;
+    color: $white;
+    transform: translateY(-200%);
+    border-top: $grey 1px solid;
+    padding: 2rem 2rem 3rem;
+  }
 }
 
 .Admin {
-    height: 100vh;
+  height: 100vh;
+}
+
+.BlogPost {
+  h1 {
+    font-weight: bolder;
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-weight: 200;
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    border-top: 1px solid $grey;
+    border-bottom: 1px solid $grey;
+    margin: 0.5rem 1rem;
+    font-weight: 300;
+  }
+
+  h1,
+  h3 {
+    text-align: center;
+  }
+
+  p {
+    margin: 0.5rem 1rem 0;
+  }
+}
+
+.BlogItem {
+  // background: red;
+  margin: 0 1rem 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid $grey;
+  border-radius: 3px;
+
+  div {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.AllBlogs {
+  ul {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
 }

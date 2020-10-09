@@ -1,21 +1,16 @@
 import React, { createContext, useEffect, useReducer, useState } from "react";
 import AppReducer from "./AppReducer";
-import red_freedom from "../img/red-freedom.jpg";
-import run from "../img/run.jpg";
-import tree_jump from "../img/tree-jump.jpg";
+
 import slugify from "slugify";
 
 import firebase from "../firebase";
 
 export class Blog {
-  constructor(id, img, title, author, body, subtitle) {
-    this.id = id;
-    this.img = img;
+  constructor(title, author, body, subtitle) {
     this.title = title;
     this.author = author;
     this.body = body;
     this.subtitle = subtitle;
-    this.slug = slugify(title);
   }
 }
 
@@ -25,8 +20,6 @@ const initialState = {
     subtitle: "",
     author: "",
     body: "",
-    img: null,
-    slug: "",
   },
   blogData: [],
   loading: true,
@@ -49,19 +42,6 @@ export const GlobalProvider = ({ children }) => {
 
         dispatch({ type: "UPDATE_BLOG", payload: newBlogs });
       });
-  }
-
-  function setCurrentBlog(slug) {
-    const payload = state.blogData.find((blog) => slug === blog.slug);
-
-    console.log(payload);
-
-    dispatch({
-      type: "SET_BLOG",
-      payload,
-    });
-
-    setLoading(false);
   }
 
   function getBlogById(id) {
@@ -92,7 +72,7 @@ export const GlobalProvider = ({ children }) => {
 
     // debugger;
 
-    ref.set({...blog, id: ref.id });
+    ref.set({ ...blog, id: ref.id });
 
     const payload = [...state.blogData, blog];
 
@@ -103,19 +83,13 @@ export const GlobalProvider = ({ children }) => {
   }
 
   function deleteBlog(id) {
-    const blogData = state.blogData.slice();
-
-    const index = blogData.findIndex((blog) => blog.id === id);
-
-    blogData.splice(index, 1);
+    firebase.firestore().collection("blogs").doc(id).delete();
 
     const blog = {
       title: "",
       subtitle: "",
       author: "",
       body: "",
-      img: null,
-      slug: "",
     };
 
     dispatch({
@@ -123,25 +97,21 @@ export const GlobalProvider = ({ children }) => {
       payload: blog,
     });
 
-    dispatch({
-      type: "UPDATE_BLOG",
-      payload: blogData,
-    });
+    getBlogs()
+
+   
   }
 
   function updateBlog(blog) {
     const { id } = blog;
 
-    const blogData = state.blogData.slice();
+    const ref = firebase.firestore().collection("blogs").doc(id);
 
-    const index = blogData.findIndex((blog) => id === blog.id);
-
-    blogData[index] = blog;
-
-    dispatch({
-      type: "UPDATE_BLOG",
-      payload: blogData,
+    ref.update({
+      ...blog,
     });
+
+    getBlogs();
   }
 
   const handleBlogChange = (event, prop) => {
@@ -178,7 +148,6 @@ export const GlobalProvider = ({ children }) => {
         blog: state.blog,
         blogData: state.blogData,
         loading: state.loading,
-        setCurrentBlog,
         addToBlog,
         getBlogById,
         setLoading,

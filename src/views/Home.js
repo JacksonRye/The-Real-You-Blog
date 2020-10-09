@@ -1,6 +1,5 @@
-import React, { useContext, useRef } from "react";
-import { Link } from "react-router-dom"
-import logo from "../logo.svg";
+import React, { useContext, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import {
   GridList,
@@ -9,6 +8,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { GlobalContext } from "../context/GlobalState";
+import BlogItem from "../components/BlogItem";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,19 +21,8 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     flexWrap: "nowrap",
     transform: "translateZ(0)",
-    height: "400px"
+    height: "40vh",
   },
-  title: {
-    color: "black",
-    textAlign: "center",
-  },
-  titleBar: {
-    background: "white",
-    border: "1px solid gray",
-  },
-  img: {
-      height: "200px"
-  }
 }));
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
@@ -42,14 +31,18 @@ const Home = () => {
   const blogsRef = useRef(null);
   const scrollToBlogs = () => scrollToRef(blogsRef);
 
-  const { blogData } = useContext(GlobalContext);
+  const { blogData, getBlogs } = useContext(GlobalContext);
+
+  useEffect(() => {
+    getBlogs();
+  }, []);
 
   const classes = useStyles();
 
   return (
     <div className="Home">
       <div className="hero">
-        <h1>The Real Me</h1>
+        <h1>The Real <span>Me</span></h1>
 
         <div className="tagline">
           <h4>Redefine Yourself.</h4>
@@ -73,24 +66,12 @@ const Home = () => {
             MOST <br /> RECENT
           </h1>
         </div>
-        <div className={classes.root}>
-          <GridList className={classes.gridList} cols={2.5}>
-            {blogData.map((tile) => (
-              <Link to={`/blogs/${tile.slug}`}>
-                <GridListTile key={tile.img}>
-                  <img src={tile.img} className="tile-img" alt={tile.title} />
-                  <GridListTileBar
-                    title={tile.title}
-                    subtitle={tile.author}
-                    classes={{
-                      root: classes.titleBar,
-                      title: classes.title,
-                    }}
-                  />
-                </GridListTile>
-              </Link>
-            ))}
-          </GridList>
+        <div className="recent-blogs-list">
+          {blogData.slice(0, 4).map((blog) => (
+            <Link to={`/blogs/${blog.id}`}>
+              <BlogItem blog={blog} />
+            </Link>
+          ))}
         </div>
       </section>
     </div>

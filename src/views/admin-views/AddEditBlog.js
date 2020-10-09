@@ -21,7 +21,6 @@ const AddEditBlog = ({ match }) => {
     getBlogById,
     loading,
     addToBlog,
-    blogData,
     blog,
     handleBlogChange,
     updateBlog,
@@ -32,8 +31,6 @@ const AddEditBlog = ({ match }) => {
     const { title, subtitle, body, author } = blog;
 
     const blogObject = new Blog(
-      blogData.length + 1,
-      null,
       title,
       author,
       body,
@@ -55,7 +52,7 @@ const AddEditBlog = ({ match }) => {
   }
 
   useEffect(() => {
-    getBlogById(+id);
+    getBlogById(id);
 
     // setLoading(false)
     // console.log("edit blog", blog);

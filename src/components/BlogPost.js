@@ -4,20 +4,25 @@ import { GlobalContext } from "../context/GlobalState";
 const BlogPost = ({ match }) => {
   const { params } = match;
 
-  const { slug } = params;
+  const { id } = params;
 
-  const { setCurrentBlog, blog, loading } = useContext(GlobalContext);
+  const { getBlogById, blog, loading } = useContext(GlobalContext);
+
+  const { title, subtitle, body, author } = blog;
 
   useEffect(() => {
-    setCurrentBlog(slug);
+    getBlogById(id);
   }, []);
 
   return loading ? (
     <h1>Loading</h1>
   ) : (
     <section className="BlogPost">
-      <h1>{blog.title}</h1>
-      <p>{blog.body}</p>
+      <h1>{title}</h1>
+      <h3>{subtitle}</h3>
+
+      <h4>By {author}</h4>
+      <p>{body}</p>
     </section>
   );
 };
