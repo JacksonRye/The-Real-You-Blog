@@ -16,7 +16,7 @@ const BlogItem = ({ blog, asAdmin }) => {
 
         <div>
           <span>{author}</span>
-          <p>27 Sept 2020</p>
+          {/* <p>27 Sept 2020</p> */}
         </div>
         
       </div>

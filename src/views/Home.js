@@ -42,14 +42,14 @@ const Home = () => {
   return (
     <div className="Home">
       <div className="hero">
-        <h1>The Real <span>Me</span></h1>
+        <h1>TheReal<span>Me</span></h1>
 
         <div className="tagline">
-          <h4>Redefine Yourself.</h4>
+          <h4>Re-Invent Yourself.</h4>
         </div>
 
         <div className="unskew">
-          <h2>We Are The Real You Team</h2>
+          <h2>We Are TheRealMe Team</h2>
           <br />
           <p>
             Our Mission is to provide action oriented information for young

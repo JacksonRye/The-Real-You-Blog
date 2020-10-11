@@ -8,7 +8,7 @@ const Header = () => {
       <div id="logo-and-search">
         <img src={logo} alt="Logo" />
 
-        <h1>The Real Me Blog</h1>
+        <h1>TheRealMe Blog</h1>
 
         {/* <svg
           width="24"

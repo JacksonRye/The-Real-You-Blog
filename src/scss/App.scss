@@ -228,3 +228,30 @@ a {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 }
+
+.AboutPage {
+  h1 {
+    text-align: center;
+    font-size: 4rem;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;    // color: lighten($accent-color, $amount: 8);
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  p {
+    margin: 1rem;
+    font-weight: 200;
+  }
+  .image-container {
+    width: 95%;
+    margin: auto;
+    img {
+      margin: 2rem auto;
+      height: auto;
+      width: 100%;
+    }
+  }
+}
