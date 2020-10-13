@@ -22,7 +22,7 @@ const BlogPost = ({ match }) => {
       <h3>{subtitle}</h3>
 
       <h4>By {author}</h4>
-      <p>{body}</p>
+      <div dangerouslySetInnerHTML={{__html: body}} />
     </section>
   );
 };

@@ -52,7 +52,7 @@ a {
     background-size: cover;
 
     color: $white;
-    transform: skewY(2deg);
+    // transform: skewY(2deg);
     padding: 2rem;
     h1 {
       font-size: 3rem;
@@ -79,7 +79,7 @@ a {
 
     .unskew {
       padding-top: 1rem;
-      transform: skewY(-2deg);
+      // transform: skewY(-2deg);
 
       button {
         margin: 2rem 0;
@@ -110,13 +110,13 @@ a {
 
     #recent-back {
       background: lighten($accent-color, $amount: 8);
-      transform: skewY(2deg);
+      // transform: skewY(2deg);
       padding: 4rem 0;
       z-index: 0;
       h1 {
         text-align: center;
         font-size: 4rem;
-        transform: skewY(-2deg);
+        // transform: skewY(-2deg);
         //   color: rgba(211, 211, 211, 0);
         color: lighten($accent-color, $amount: 8);
         text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
@@ -128,9 +128,9 @@ a {
 }
 
 .About {
-  height: 100vh;
-  background: url("/img/jump-sun.jpg") center;
-  background-size: cover;
+  // height: 100vh;
+  background: $accent-color;
+  // background-size: cover;
   color: white;
   margin-top: 4rem;
 
@@ -162,13 +162,13 @@ a {
 
   .sign {
     z-index: 10;
-    position: relative;
-    top: 90%;
+    // position: relative;
+    // top: 90%;
     width: 90%;
 
-    margin: auto;
+    margin: 2rem auto 0;
     color: $white;
-    transform: translateY(-200%);
+    // transform: translateY(-200%);
     border-top: $grey 1px solid;
     padding: 2rem 2rem 3rem;
   }
@@ -210,8 +210,13 @@ a {
   // background: red;
   margin: 0 1rem 0.5rem;
   padding: 0.5rem;
-  border: 1px solid $grey;
+  border: 1px solid black;
   border-radius: 3px;
+
+  &:hover {
+    color: $accent-color;
+    border-color: $accent-color;
+  }
 
   div {
     margin-top: 0.5rem;

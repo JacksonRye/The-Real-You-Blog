@@ -81,8 +81,6 @@ a {
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url("/img/tree-jump.jpg");
   background-size: cover;
   color: #fff;
-  -webkit-transform: skewY(2deg);
-          transform: skewY(2deg);
   padding: 2rem;
 }
 
@@ -108,8 +106,6 @@ a {
 
 .Home .hero .unskew {
   padding-top: 1rem;
-  -webkit-transform: skewY(-2deg);
-          transform: skewY(-2deg);
 }
 
 .Home .hero .unskew button {
@@ -145,8 +141,6 @@ a {
 
 .Home .recent-blogs #recent-back {
   background: #f5db7f;
-  -webkit-transform: skewY(2deg);
-          transform: skewY(2deg);
   padding: 4rem 0;
   z-index: 0;
 }
@@ -154,16 +148,12 @@ a {
 .Home .recent-blogs #recent-back h1 {
   text-align: center;
   font-size: 4rem;
-  -webkit-transform: skewY(-2deg);
-          transform: skewY(-2deg);
   color: #f5db7f;
   text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
 }
 
 .About {
-  height: 100vh;
-  background: url("/img/jump-sun.jpg") center;
-  background-size: cover;
+  background: #F2D059;
   color: white;
   margin-top: 4rem;
 }
@@ -205,13 +195,9 @@ a {
 
 .About .sign {
   z-index: 10;
-  position: relative;
-  top: 90%;
   width: 90%;
-  margin: auto;
+  margin: 2rem auto 0;
   color: #fff;
-  -webkit-transform: translateY(-200%);
-          transform: translateY(-200%);
   border-top: #b9b9b9 1px solid;
   padding: 2rem 2rem 3rem;
 }
@@ -249,8 +235,13 @@ a {
 .BlogItem {
   margin: 0 1rem 0.5rem;
   padding: 0.5rem;
-  border: 1px solid #b9b9b9;
+  border: 1px solid black;
   border-radius: 3px;
+}
+
+.BlogItem:hover {
+  color: #F2D059;
+  border-color: #F2D059;
 }
 
 .BlogItem div {

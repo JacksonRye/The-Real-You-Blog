@@ -2,7 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const BlogItem = ({ blog, asAdmin }) => {
-  const { title, subtitle, id, author } = blog;
+  const { title, subtitle, id, author, createdate } = blog;
+  const date = new Date(0);
+  date.setUTCSeconds(createdate.seconds);
+
   return asAdmin ? (
     <div>
       <h1>{title}</h1>
@@ -16,9 +19,8 @@ const BlogItem = ({ blog, asAdmin }) => {
 
         <div>
           <span>{author}</span>
-          {/* <p>27 Sept 2020</p> */}
+          <p>{date.toLocaleDateString()}</p>
         </div>
-        
       </div>
     </Link>
   );

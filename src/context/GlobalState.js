@@ -30,18 +30,30 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  function getBlogs() {
-    firebase
-      .firestore()
-      .collection("blogs")
-      .onSnapshot((snapshot) => {
-        const newBlogs = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+  let lastDoc = null;
 
-        dispatch({ type: "UPDATE_BLOG", payload: newBlogs });
+  const blogQuery = firebase
+    .firestore()
+    .collection("blogs")
+    .orderBy("createdate", "desc");
+
+  function getBlogs() {
+    blogQuery
+      .limit(3)
+      .limitToLast(1)
+      .onSnapshot((snapshot) => {
+        lastDoc = snapshot.docs[0].data();
+        console.log("last", lastDoc);
       });
+
+    blogQuery.onSnapshot((snapshot) => {
+      const newBlogs = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      dispatch({ type: "UPDATE_BLOG", payload: newBlogs });
+    });
   }
 
   function getBlogById(id) {
@@ -65,95 +77,14 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
-  function addToBlog(blog) {
-    console.log(blog);
-
-    const ref = firebase.firestore().collection("blogs").doc();
-
-    // debugger;
-
-    ref.set({ ...blog, id: ref.id });
-
-    const payload = [...state.blogData, blog];
-
-    dispatch({
-      type: "UPDATE_BLOG",
-      payload,
-    });
-  }
-
-  function deleteBlog(id) {
-    firebase.firestore().collection("blogs").doc(id).delete();
-
-    const blog = {
-      title: "",
-      subtitle: "",
-      author: "",
-      body: "",
-    };
-
-    dispatch({
-      type: "SET_BLOG",
-      payload: blog,
-    });
-
-    getBlogs()
-
-   
-  }
-
-  function updateBlog(blog) {
-    const { id } = blog;
-
-    const ref = firebase.firestore().collection("blogs").doc(id);
-
-    ref.update({
-      ...blog,
-    });
-
-    getBlogs();
-  }
-
-  const handleBlogChange = (event, prop) => {
-    const value = event.target.value;
-
-    let payload;
-
-    if (prop === "author") {
-      const author = value;
-      payload = { ...state.blog, author };
-    }
-    if (prop === "body") {
-      const body = value;
-      payload = { ...state.blog, body };
-    }
-    if (prop === "title") {
-      const title = value;
-      payload = { ...state.blog, title };
-    }
-    if (prop === "subtitle") {
-      const subtitle = value;
-      payload = { ...state.blog, subtitle };
-    }
-
-    dispatch({
-      type: "SET_BLOG",
-      payload,
-    });
-  };
-
   return (
     <GlobalContext.Provider
       value={{
         blog: state.blog,
         blogData: state.blogData,
         loading: state.loading,
-        addToBlog,
         getBlogById,
         setLoading,
-        handleBlogChange,
-        updateBlog,
-        deleteBlog,
         getBlogs,
       }}
     >

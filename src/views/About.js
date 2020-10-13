@@ -25,8 +25,13 @@ const About = () => {
             <a href="https://www.facebook.com/therealmedm">
               <img src={facebook} alt="facebook" />
             </a>
-            <img src={instagram} alt="instagram" />
-            <img src={youtube} alt="youtube" />
+            <a href="https://bit.ly/TRMdM">
+              <img src={whatsapp} alt="whatsapp" />
+            </a>
+            <a href="https://www.instagram.com/therealmedm_">
+              <img src={instagram} alt="instagram" />
+            </a>
+            {/* <img src={youtube} alt="youtube" /> */}
           </div>
           <h3>Work With Us</h3>
           <p>Contact: +234 814 9627 272</p>
