@@ -1,18 +1,8 @@
-import React, { createContext, useEffect, useReducer, useState } from "react";
+import React, { createContext,  useReducer } from "react";
 import AppReducer from "./AppReducer";
-
-import slugify from "slugify";
 
 import firebase from "../firebase";
 
-export class Blog {
-  constructor(title, author, body, subtitle) {
-    this.title = title;
-    this.author = author;
-    this.body = body;
-    this.subtitle = subtitle;
-  }
-}
 
 const initialState = {
   blog: {
@@ -23,6 +13,7 @@ const initialState = {
   },
   blogData: [],
   loading: true,
+  lastBlog: null,
 };
 
 export const GlobalContext = createContext(initialState);
@@ -30,28 +21,47 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  let lastDoc = null;
+  const limit = 2;
 
   const blogQuery = firebase
     .firestore()
     .collection("blogs")
     .orderBy("createdate", "desc");
 
-  function getBlogs() {
+  function nextBlogs() {
     blogQuery
-      .limit(3)
-      .limitToLast(1)
+      .startAfter(state.lastBlog)
+      .limit(limit)
       .onSnapshot((snapshot) => {
-        lastDoc = snapshot.docs[0].data();
-        console.log("last", lastDoc);
-      });
+        const last = snapshot.docs[snapshot.docs.length - 1];
+        dispatch({ type: "SET_LAST_BLOG", payload: last });
+        const newBlogs = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-    blogQuery.onSnapshot((snapshot) => {
+        const blogData = [...state.blogData, ...newBlogs];
+        dispatch({ type: "UPDATE_BLOG", payload: blogData });
+      });
+  }
+
+  function getBlogs() {
+    blogQuery.limit(limit).onSnapshot((snapshot) => {
+      const last = snapshot.docs[snapshot.docs.length - 1];
+      dispatch({ type: "SET_LAST_BLOG", payload: last });
       const newBlogs = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
 
+      // const last = snapshot.docs[snapshot.docs.length - 1];
+      // next = blogQuery.startAfter(last).limit(3);
+
+      // next.onSnapshot((snapshot) => {
+      //   snapshot.docs.forEach((doc) => console.log("next", doc.data()));
+      // });
+
+      // debugger
       dispatch({ type: "UPDATE_BLOG", payload: newBlogs });
     });
   }
@@ -86,6 +96,7 @@ export const GlobalProvider = ({ children }) => {
         getBlogById,
         setLoading,
         getBlogs,
+        nextBlogs,
       }}
     >
       {children}

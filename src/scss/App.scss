@@ -227,7 +227,7 @@ a {
 }
 
 .AllBlogs {
-  ul {
+  .blog-list {
     display: grid;
     align-items: center;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -239,7 +239,8 @@ a {
     text-align: center;
     font-size: 4rem;
     color: white;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;    // color: lighten($accent-color, $amount: 8);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000; // color: lighten($accent-color, $amount: 8);
   }
 
   h3 {
@@ -259,4 +260,16 @@ a {
       width: 100%;
     }
   }
+}
+
+.see-more {
+  border: 1px solid $accent-color;
+  padding: 1rem;
+  justify-self: center;
+  position: relative;
+  // left: 50%;
+}
+
+.loading {
+  text-align: center;
 }

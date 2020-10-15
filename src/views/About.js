@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import facebook from "../icons/facebook.svg";
 import instagram from "../icons/instagram.svg";
 import whatsapp from "../icons/whatsapp.svg";
-import youtube from "../icons/youtube.svg";
+// import youtube from "../icons/youtube.svg";
 
 const About = () => {
   return (
@@ -34,7 +34,7 @@ const About = () => {
             {/* <img src={youtube} alt="youtube" /> */}
           </div>
           <h3>Work With Us</h3>
-          <p>Contact: +234 814 9627 272</p>
+          <p>Contact: +234 814 972 7272</p>
         </div>
       </div>
 

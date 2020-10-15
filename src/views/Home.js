@@ -1,29 +1,10 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
-import {
-  GridList,
-  GridListTile,
-  GridListTileBar,
-  makeStyles,
-} from "@material-ui/core";
 import { GlobalContext } from "../context/GlobalState";
 import BlogItem from "../components/BlogItem";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden",
-    backgroundColor: theme.palette.background.paper,
-  },
-  gridList: {
-    flexWrap: "nowrap",
-    transform: "translateZ(0)",
-    height: "40vh",
-  },
-}));
+
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
@@ -37,7 +18,7 @@ const Home = () => {
     getBlogs();
   }, []);
 
-  const classes = useStyles();
+
 
   return (
     <div className="Home">
@@ -72,6 +53,7 @@ const Home = () => {
               <BlogItem blog={blog} />
             </Link>
           ))}
+          <Link className="see-more" to="/all-blogs">See More</Link>
         </div>
       </section>
     </div>

@@ -9,6 +9,9 @@ export default (state, action) => {
     case "SET_LOADING":
       return { ...state, loading: action.payload };
 
+    case "SET_LAST_BLOG":
+      return { ...state, lastBlog: action.payload };
+
     default:
       break;
   }
